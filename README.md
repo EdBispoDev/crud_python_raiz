@@ -2,6 +2,7 @@
 
 Olá! 👋  
 Esse é um projeto simples de CRUD em Python, desenvolvido **para fins de estudo**. Aqui eu explorei conceitos de orientação a objetos, SQLite e boas práticas de separação de responsabilidades.
+Próximo passo vou implementar os testes, depois irei add mais funcionalidades, como docker, banco de dados mais robusto, segurança e outros.
 
 ---
 
