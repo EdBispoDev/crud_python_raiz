@@ -1,5 +1,6 @@
 from controller.UserController import UserController
 
+
 def main():
     controller = UserController()
 
