@@ -11,7 +11,6 @@ class UserController:
         cpf = input("CPF (apenas números): ")
         idade_str = input("Idade: ")
 
-        # Validação básica de idade
         try:
             idade = int(idade_str)
         except ValueError:

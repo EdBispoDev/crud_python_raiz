@@ -5,7 +5,6 @@ class Usuario:
         if idade < 0:
             raise ValueError("Idade inválida")
         
-        # Atribuições corretas (sem vírgula)
         self.nome = nome
         self.endereco = endereco
         self.cpf = cpf
