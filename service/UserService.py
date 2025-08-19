@@ -7,7 +7,6 @@ class UserService:
         self.repo = UserRepository(db_path)
 
     def cadastrar_usuario(self, nome: str, endereco: str, cpf: str, idade: int):
-        # Validação básica
         if len(cpf) != 11 or not cpf.isdigit():
             print("Erro: CPF inválido!")
             return None
@@ -20,7 +19,6 @@ class UserService:
             print(f"Erro: CPF {cpf} já cadastrado!")
             return None
 
-        # Criar usuário e salvar
         usuario = Usuario(nome, endereco, cpf, idade)
         self.repo.salvar(usuario)
         return usuario
