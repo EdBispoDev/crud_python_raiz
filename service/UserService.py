@@ -3,8 +3,8 @@ from repository.UserRepository import UserRepository
 
 
 class UserService:
-    def __init__(self):
-        self.repo = UserRepository()
+    def __init__(self, db_path="usuarios_db"):
+        self.repo = UserRepository(db_path)
 
     def cadastrar_usuario(self, nome: str, endereco: str, cpf: str, idade: int):
         # Validação básica
