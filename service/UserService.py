@@ -1,6 +1,9 @@
+import logging
 from core.user import Usuario
 from repository.UserRepository import UserRepository
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class UserService:
     def __init__(self, db_path="usuarios_db"):
@@ -8,19 +11,19 @@ class UserService:
 
     def cadastrar_usuario(self, nome: str, endereco: str, cpf: str, idade: int):
         if len(cpf) != 11 or not cpf.isdigit():
-            print("Erro: CPF inválido!")
+            logger.error("CPF inválido!")
             return None
         if idade < 0:
-            print("Erro: Idade inválida!")
+            logger.error("Idade inválida!")
             return None
 
-        # Verificar se CPF já existe
         if self.repo.buscar_por_cpf(cpf):
-            print(f"Erro: CPF {cpf} já cadastrado!")
+            logger.error(f"CPF {cpf} já cadastrado!")
             return None
 
         usuario = Usuario(nome, endereco, cpf, idade)
         self.repo.salvar(usuario)
+        logger.info(f"Usuário {nome} cadastrado com sucesso.")
         return usuario
 
     def listar_usuarios(self):
@@ -29,7 +32,7 @@ class UserService:
     def deletar_usuario(self, cpf: str):
         usuario = self.repo.buscar_por_cpf(cpf)
         if not usuario:
-            print(f"Erro: CPF {cpf} não encontrado!")
+            logger.error(f"CPF {cpf} não encontrado!")
             return
         self.repo.deletar(cpf)
-        print(f"Usuário com CPF {cpf} deletado com sucesso!")
+        logger.info(f"Usuário com CPF {cpf} deletado com sucesso.")

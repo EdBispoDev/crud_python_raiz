@@ -1,5 +1,8 @@
 import sqlite3
+import logging
 from core.user import Usuario
+
+logger = logging.getLogger(__name__)
 
 class UserRepository:
     def __init__(self, db_path="usuarios_db"):
@@ -25,20 +28,18 @@ class UserRepository:
 
     def salvar(self, usuario: Usuario):
         if self.buscar_por_cpf(usuario.cpf):
-            print(f"Erro: CPF {usuario.cpf} já cadastrado!")
+            logger.error(f"CPF {usuario.cpf} já cadastrado!")
             return None
 
         conn = self.get_connection()
         cursor = conn.cursor()
         cursor.execute(
-            '''
-            INSERT INTO usuarios (cpf, nome, endereco, idade)
-            VALUES (?, ?, ?, ?)
-            ''',
+            'INSERT INTO usuarios (cpf, nome, endereco, idade) VALUES (?, ?, ?, ?)',
             (usuario.cpf, usuario.nome, usuario.endereco, usuario.idade)
         )
         conn.commit()
         conn.close()
+        logger.info(f"Usuário {usuario.nome} salvo com sucesso.")
         return usuario
 
     def buscar_por_cpf(self, cpf: str):
@@ -68,3 +69,4 @@ class UserRepository:
         cursor.execute("DELETE FROM usuarios WHERE cpf=?", (cpf,))
         conn.commit()
         conn.close()
+        logger.info(f"Usuário com CPF {cpf} deletado com sucesso.")
